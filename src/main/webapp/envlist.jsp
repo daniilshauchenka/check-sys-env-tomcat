@@ -6,14 +6,28 @@
     <title>Environment Variables</title>
 </head>
 <body>
+<h1>Properties:</h1>
+<table border="1">
+    <tr>
+        <th>Variable</th>
+        <th>Value</th>
+    </tr>
+    <c:forEach items="${propertiesList}" var="property">
+        <c:set var="splitVar" value="${property.split(':')}"/>
+        <tr>
+            <td>${splitVar[0]}</td>
+            <td>${splitVar[1]}</td>
+        </tr>
+    </c:forEach>
+</table>
 <h1>Environment Variables:</h1>
 <table border="1">
     <tr>
         <th>Variable</th>
         <th>Value</th>
     </tr>
-    <c:forEach items="${variablesList}" var="variable">
-        <c:set var="splitVar" value="${variable.split(':')}"/>
+    <c:forEach items="${envList}" var="env">
+        <c:set var="splitVar" value="${env.split(':')}"/>
         <tr>
             <td>${splitVar[0]}</td>
             <td>${splitVar[1]}</td>
