@@ -6,10 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 
 @WebServlet("/checkenv")
@@ -18,10 +15,16 @@ public class EnvironmentVariablesServlet extends HttpServlet {
         Map<String, String> env = new TreeMap<>(System.getenv());
         List<String> variablesList = new ArrayList<>();
 
-        for (Map.Entry<String, String> entry : env.entrySet()) {
-            variablesList.add(entry.getKey() + " : " + entry.getValue());
+//        for (Map.Entry<String, String> entry : env.entrySet()) {
+//            variablesList.add(entry.getKey() + " : " + entry.getValue());
+//        }
+
+        Properties properties = System.getProperties();
+        TreeMap<Object, Object> sortedProperties = new TreeMap<>(properties);
+        for (Map.Entry<Object, Object> entry : sortedProperties.entrySet()) {
+            variablesList.add(entry.getKey().toString() + " : " + entry.getValue().toString());
         }
-System.out.println(variablesList);
+        
         request.setAttribute("variablesList", variablesList);
         request.getRequestDispatcher("envlist.jsp").forward(request, response);
     }
